@@ -1,0 +1,46 @@
+{
+    "version":"1.0.0",
+    "description":"{label} is placeholder for the label passed in the source file. That is a reserved option name.",
+    "grammar":{
+        "actions": [
+            
+        ],
+        "objects": [
+
+        ],
+        "import_lines": [
+            "import numpy as np",
+            "import pandas as pd",
+            "import matplotlib.pyplot as plt",
+            "import seaborn as sns"
+        ],
+        "mapping":{
+            "create-dataset":{
+                "options":{
+                    "from":"LITERAL"
+                },
+                "code":"{label} = pd.read_csv({from})"
+            },
+            "display-dataset":{
+                "options":{
+                    "num-rows":"NUMBER"
+                },
+                "code":"{label}.head()"
+            },
+            "modify-dataset":{
+                "options":{
+                    "delete-col":"LITERAL"
+                },
+                "code":"{label} = {label}.drop('{delete-col}', axis=1)"
+            },
+            "preprocess-dataset":{
+                "options":{
+                    "fillnan" : "[LITERAL,TEXT]"
+                },
+                "code":"{label} = {label}.drop('{delete-col}', axis=1)"
+            }
+            
+            
+        }
+    }
+}

@@ -1,0 +1,21 @@
+create dataset data1 : 
+    => from: "/home/pratik/datasets/abc.csv", secondval
+    => file-type: "csv"
+    => index: "col1"
+    => category: "col2"
+    => date: "col4", "col5"
+    => number: "col6", "col7"
+
+modify dataset data1 :
+    => text: "col6"
+    => category: "col7"
+
+
+copy dataset data1:
+    => to: data2
+
+display dataset data2:
+    => display-type: table
+    => display-rows: 5.0
+    => display-index: yes
+    => display-order: first

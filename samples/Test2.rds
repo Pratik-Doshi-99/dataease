@@ -1,0 +1,28 @@
+create dataset auto1:
+    => from: "auto-mpg (1).csv"
+    => target: "mpg"
+
+display dataset auto1:
+    => num-rows: 10
+
+modify dataset auto1:
+    => delete-col: "car name"
+
+preprocess dataset auto1:
+    => fillnan: "horsepower",median
+
+display chart chart1:
+    => from: auto1
+    => cols: "acceleration","weight","horsepower","displacement","cylinders","mpg"
+    => kind: pairwise
+
+split dataset auto1:
+    => test-size: 0.2
+
+create model regModels:
+    => from: auto1
+    => models: Linear-Regression
+
+display metrics regMetrics:
+    => from: regModels
+

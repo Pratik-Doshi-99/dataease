@@ -1,0 +1,10 @@
+create dataset auto1:
+    => from: "auto-mpg (1).csv"
+    => target: "mpg"
+
+display dataset auto1:
+    => num-rows: 10
+
+create model regModel:
+    => from: auto1
+    => models: Linear-Regression, Decision-Tree-Regression

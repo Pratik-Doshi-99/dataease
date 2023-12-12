@@ -1,0 +1,2 @@
+create dataset data1:
+    => from: csv
