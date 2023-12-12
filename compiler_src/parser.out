@@ -1,0 +1,332 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    EQUAL
+    GREATER
+    LESSER
+    N
+    NEWLINE
+    NOT
+    WHITESPACE
+    WORD
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> command_list
+Rule 2     command_list -> command_list command
+Rule 3     command_list -> command
+Rule 4     command -> ACTION OBJECT TEXT COLON options_list
+Rule 5     options_list -> options_list c_option
+Rule 6     options_list -> c_option
+Rule 7     c_option -> OPTION VERB COLON value_list
+Rule 8     c_option -> OPTION TEXT COLON value_list
+Rule 9     value_list -> value_list COMMA value
+Rule 10    value_list -> value
+Rule 11    value -> NUMBER
+Rule 12    value -> TEXT
+Rule 13    value -> CONSTANT
+Rule 14    value -> LITERAL
+
+Terminals, with rules where they appear
+
+ACTION               : 4
+COLON                : 4 7 8
+COMMA                : 9
+CONSTANT             : 13
+EQUAL                : 
+GREATER              : 
+LESSER               : 
+LITERAL              : 14
+N                    : 
+NEWLINE              : 
+NOT                  : 
+NUMBER               : 11
+OBJECT               : 4
+OPTION               : 7 8
+TEXT                 : 4 8 12
+VERB                 : 7
+WHITESPACE           : 
+WORD                 : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+c_option             : 5 6
+command              : 2 3
+command_list         : 1 2
+options_list         : 4 5
+program              : 0
+value                : 9 10
+value_list           : 7 8 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . command_list
+    (2) command_list -> . command_list command
+    (3) command_list -> . command
+    (4) command -> . ACTION OBJECT TEXT COLON options_list
+
+    ACTION          shift and go to state 4
+
+    program                        shift and go to state 1
+    command_list                   shift and go to state 2
+    command                        shift and go to state 3
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> command_list .
+    (2) command_list -> command_list . command
+    (4) command -> . ACTION OBJECT TEXT COLON options_list
+
+    $end            reduce using rule 1 (program -> command_list .)
+    ACTION          shift and go to state 4
+
+    command                        shift and go to state 5
+
+state 3
+
+    (3) command_list -> command .
+
+    ACTION          reduce using rule 3 (command_list -> command .)
+    $end            reduce using rule 3 (command_list -> command .)
+
+
+state 4
+
+    (4) command -> ACTION . OBJECT TEXT COLON options_list
+
+    OBJECT          shift and go to state 6
+
+
+state 5
+
+    (2) command_list -> command_list command .
+
+    ACTION          reduce using rule 2 (command_list -> command_list command .)
+    $end            reduce using rule 2 (command_list -> command_list command .)
+
+
+state 6
+
+    (4) command -> ACTION OBJECT . TEXT COLON options_list
+
+    TEXT            shift and go to state 7
+
+
+state 7
+
+    (4) command -> ACTION OBJECT TEXT . COLON options_list
+
+    COLON           shift and go to state 8
+
+
+state 8
+
+    (4) command -> ACTION OBJECT TEXT COLON . options_list
+    (5) options_list -> . options_list c_option
+    (6) options_list -> . c_option
+    (7) c_option -> . OPTION VERB COLON value_list
+    (8) c_option -> . OPTION TEXT COLON value_list
+
+    OPTION          shift and go to state 11
+
+    options_list                   shift and go to state 9
+    c_option                       shift and go to state 10
+
+state 9
+
+    (4) command -> ACTION OBJECT TEXT COLON options_list .
+    (5) options_list -> options_list . c_option
+    (7) c_option -> . OPTION VERB COLON value_list
+    (8) c_option -> . OPTION TEXT COLON value_list
+
+    ACTION          reduce using rule 4 (command -> ACTION OBJECT TEXT COLON options_list .)
+    $end            reduce using rule 4 (command -> ACTION OBJECT TEXT COLON options_list .)
+    OPTION          shift and go to state 11
+
+    c_option                       shift and go to state 12
+
+state 10
+
+    (6) options_list -> c_option .
+
+    OPTION          reduce using rule 6 (options_list -> c_option .)
+    ACTION          reduce using rule 6 (options_list -> c_option .)
+    $end            reduce using rule 6 (options_list -> c_option .)
+
+
+state 11
+
+    (7) c_option -> OPTION . VERB COLON value_list
+    (8) c_option -> OPTION . TEXT COLON value_list
+
+    VERB            shift and go to state 13
+    TEXT            shift and go to state 14
+
+
+state 12
+
+    (5) options_list -> options_list c_option .
+
+    OPTION          reduce using rule 5 (options_list -> options_list c_option .)
+    ACTION          reduce using rule 5 (options_list -> options_list c_option .)
+    $end            reduce using rule 5 (options_list -> options_list c_option .)
+
+
+state 13
+
+    (7) c_option -> OPTION VERB . COLON value_list
+
+    COLON           shift and go to state 15
+
+
+state 14
+
+    (8) c_option -> OPTION TEXT . COLON value_list
+
+    COLON           shift and go to state 16
+
+
+state 15
+
+    (7) c_option -> OPTION VERB COLON . value_list
+    (9) value_list -> . value_list COMMA value
+    (10) value_list -> . value
+    (11) value -> . NUMBER
+    (12) value -> . TEXT
+    (13) value -> . CONSTANT
+    (14) value -> . LITERAL
+
+    NUMBER          shift and go to state 19
+    TEXT            shift and go to state 20
+    CONSTANT        shift and go to state 21
+    LITERAL         shift and go to state 22
+
+    value_list                     shift and go to state 17
+    value                          shift and go to state 18
+
+state 16
+
+    (8) c_option -> OPTION TEXT COLON . value_list
+    (9) value_list -> . value_list COMMA value
+    (10) value_list -> . value
+    (11) value -> . NUMBER
+    (12) value -> . TEXT
+    (13) value -> . CONSTANT
+    (14) value -> . LITERAL
+
+    NUMBER          shift and go to state 19
+    TEXT            shift and go to state 20
+    CONSTANT        shift and go to state 21
+    LITERAL         shift and go to state 22
+
+    value_list                     shift and go to state 23
+    value                          shift and go to state 18
+
+state 17
+
+    (7) c_option -> OPTION VERB COLON value_list .
+    (9) value_list -> value_list . COMMA value
+
+    OPTION          reduce using rule 7 (c_option -> OPTION VERB COLON value_list .)
+    ACTION          reduce using rule 7 (c_option -> OPTION VERB COLON value_list .)
+    $end            reduce using rule 7 (c_option -> OPTION VERB COLON value_list .)
+    COMMA           shift and go to state 24
+
+
+state 18
+
+    (10) value_list -> value .
+
+    COMMA           reduce using rule 10 (value_list -> value .)
+    OPTION          reduce using rule 10 (value_list -> value .)
+    ACTION          reduce using rule 10 (value_list -> value .)
+    $end            reduce using rule 10 (value_list -> value .)
+
+
+state 19
+
+    (11) value -> NUMBER .
+
+    COMMA           reduce using rule 11 (value -> NUMBER .)
+    OPTION          reduce using rule 11 (value -> NUMBER .)
+    ACTION          reduce using rule 11 (value -> NUMBER .)
+    $end            reduce using rule 11 (value -> NUMBER .)
+
+
+state 20
+
+    (12) value -> TEXT .
+
+    COMMA           reduce using rule 12 (value -> TEXT .)
+    OPTION          reduce using rule 12 (value -> TEXT .)
+    ACTION          reduce using rule 12 (value -> TEXT .)
+    $end            reduce using rule 12 (value -> TEXT .)
+
+
+state 21
+
+    (13) value -> CONSTANT .
+
+    COMMA           reduce using rule 13 (value -> CONSTANT .)
+    OPTION          reduce using rule 13 (value -> CONSTANT .)
+    ACTION          reduce using rule 13 (value -> CONSTANT .)
+    $end            reduce using rule 13 (value -> CONSTANT .)
+
+
+state 22
+
+    (14) value -> LITERAL .
+
+    COMMA           reduce using rule 14 (value -> LITERAL .)
+    OPTION          reduce using rule 14 (value -> LITERAL .)
+    ACTION          reduce using rule 14 (value -> LITERAL .)
+    $end            reduce using rule 14 (value -> LITERAL .)
+
+
+state 23
+
+    (8) c_option -> OPTION TEXT COLON value_list .
+    (9) value_list -> value_list . COMMA value
+
+    OPTION          reduce using rule 8 (c_option -> OPTION TEXT COLON value_list .)
+    ACTION          reduce using rule 8 (c_option -> OPTION TEXT COLON value_list .)
+    $end            reduce using rule 8 (c_option -> OPTION TEXT COLON value_list .)
+    COMMA           shift and go to state 24
+
+
+state 24
+
+    (9) value_list -> value_list COMMA . value
+    (11) value -> . NUMBER
+    (12) value -> . TEXT
+    (13) value -> . CONSTANT
+    (14) value -> . LITERAL
+
+    NUMBER          shift and go to state 19
+    TEXT            shift and go to state 20
+    CONSTANT        shift and go to state 21
+    LITERAL         shift and go to state 22
+
+    value                          shift and go to state 25
+
+state 25
+
+    (9) value_list -> value_list COMMA value .
+
+    COMMA           reduce using rule 9 (value_list -> value_list COMMA value .)
+    OPTION          reduce using rule 9 (value_list -> value_list COMMA value .)
+    ACTION          reduce using rule 9 (value_list -> value_list COMMA value .)
+    $end            reduce using rule 9 (value_list -> value_list COMMA value .)
+
